@@ -1,6 +1,6 @@
 # **MechaCar Statistical Analysis**
 
-This project is about the prototype of "MechaCar" and consist of data from the manufacturing of different lots. We have analyzed the data using 'R' and answered few questions including designing a new statistical study about the comparison of MechaCar and its competition.
+This project is about the prototype of "MechaCar" and consist of data from the manufacturing of different lots. We have analyzed the data using 'R' and answered few questions including designing a new statistical study about the comparison of MechaCar and its competition. [Here is the link to my R_code](MechaCarChallenge.R)
 
 
 ## **Linear Regression to Predict MPG**
