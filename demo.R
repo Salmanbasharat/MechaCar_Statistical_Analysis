@@ -1,0 +1,77 @@
+library(jsonlite)
+library(tidyverse)
+
+
+
+demo_table <- read.csv(file='demo.csv',check.names=F,stringsAsFactors = F)
+library(jsonlite)
+demo_table2 <- fromJSON(txt='demo.json')
+demo_table[3,'Year']
+demo_table[3,4]
+demo_table$"Year"[4]
+filter_table <- demo_table2[demo_table2$price > 10000,]                  
+filter_table <- demo_table2[demo_table2$price > 10000,]
+filter_table2 <- subset(demo_table2, price > 10000 & drive == "4wd" & "clean" %in% title_status) #filter by price and drivetrain
+num_rows <- 1:nrow(demo_table)
+demo_table[sample(1:nrow(demo_table), 3),]
+demo_table <- demo_table %>% mutate(Mileage_per_Year=Total_Miles/(2020-Year),IsActive=TRUE) #add columns to original data f
+demo_table <- demo_table %>% mutate(Mileage_per_Year=Total_Miles/(2020-Year),IsActive=TRUE) #add columns to original data frame
+summarize_demo <- demo_table2 %>% group_by(condition) %>% summarize(Mean_Mileage=mean(odometer), .groups = 'keep') #create summary table
+demo_table3 <- read.csv('demo2.csv',check.names = F,stringsAsFactors = F)
+long_table <- gather(demo_table3,key="Metric",value="Score",buying_price:popularity)
+wide_table <- long_table %>% spread(key="Metric",value="Score")
+all.equal(demo_table3,wide_table)
+ggplot(mtcars,aes(x=wt)) + geom_density() #visualize distribution using density plot
+shapiro.test(mtcars$wt)
+
+population_table <- read.csv('used_car_data.csv',check.names = F,stringsAsFactors = F) #import used car dataset
+plt <- ggplot(population_table,aes(x=log10(Miles_Driven))) #import dataset into ggplot2
+plt + geom_density() #visualize distribution using density plot
+
+t.test(log10(sample_table$Miles_Driven),mu=mean(log10(population_table$Miles_Driven))) #compare sample versus population means
+
+mpg_data <- read.csv('mpg_modified.csv') #import dataset
+mpg_1999 <- mpg_data %>% filter(year==1999) #select only data points where the year is 1999
+mpg_2008 <- mpg_data %>% filter(year==2008) #select only data points where the year is 2008
+
+mtcars_filt <- mtcars[,c("hp","cyl")] #filter columns from mtcars dataset
+mtcars_filt$cyl <- factor(mtcars_filt$cyl) #convert numeric column to factor
+
+aov(hp ~ cyl,data=mtcars_filt) #compare means across multiple levels
+summary(aov(hp ~ cyl,data=mtcars_filt))
+
+head(mtcars)
+
+plt <- ggplot(mtcars,aes(x=hp,y=qsec)) #import dataset into ggplot2
+plt + geom_point() #create scatter plot
+
+cor(mtcars$hp,mtcars$qsec) #calculate correlation coefficient
+
+used_cars <- read.csv('used_car_data.csv',stringsAsFactors = F) #read in dataset
+head(used_cars)
+cor(used_cars$Miles_Driven,used_cars$Selling_Price) #calculate correlation coefficient
+
+used_matrix <- as.matrix(used_cars[,c("Selling_Price","Present_Price","Miles_Driven")]) #convert data frame into numeric matrix
+cor(used_matrix)
+
+plt <- ggplot(used_cars,aes(x=Miles_Driven,y=Selling_Price)) #import dataset into ggplot2
+plt + geom_point() #create a scatter plot
+
+lm(qsec ~ hp,mtcars) #create linear model  
+summary(lm(qsec~hp,mtcars)) #summarize linear model
+
+model <- lm(qsec ~ hp,mtcars) #create linear model
+yvals <- model$coefficients['hp']*mtcars$hp +
+  model$coefficients['(Intercept)'] #determine y-axis values from linear model
+
+plt <- ggplot(mtcars,aes(x=hp,y=qsec)) #import dataset into ggplot2
+plt + geom_point() + geom_line(aes(y=yvals), color = "red") #plot scatter and linear model
+
+lm(qsec ~ mpg + disp + drat + wt + hp,data=mtcars) #generate multiple linear regression model
+
+summary(lm(qsec ~ mpg + disp + drat + wt + hp,data=mtcars)) #generate summary statistics
+
+table(mpg$class,mpg$year) #generate contingency table
+
+tbl <- table(mpg$class,mpg$year) #generate contingency table
+chisq.test(tbl) #compare categorical distributions
